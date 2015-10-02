@@ -70,7 +70,7 @@ def api_drier(blk):
     else:
         blk="SUTD"
         ind=0
-    return 'Number of Driers at '+json.dumps(blk)+' is '+ json.dumps(driers[ind])+'\n'
+    return 'Number of Driers at '+json.dumps(blk)+' is '+ json.dumps(len(driers[ind]))+'\n'
 
 if __name__ == '__main__':
     app.run()
