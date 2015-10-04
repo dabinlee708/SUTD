@@ -1,76 +1,144 @@
 from flask import Flask, url_for, json
 app = Flask(__name__)
 
-studentDirectory={0:'dabin',1:'hatib',2:'huihui'}\
 
-washers59=[]
-driers59=[]
-washers57=[]
-driers57=[]
-washers55=[]
-driers55=[]
-washers=[]
-driers=[]
+class machines:
+    
+    machineCount=0
+    
+    def __init__(self, blk, state, number):
+        self.blk=blk
+        self.state=state
+        self.number=number
+        machines.machineCount+=1
+    
+    
+    def displayState(self):
+        return self.state
+    
+        
+    def displayBlk(self):
+        return self.blk
+    
+    
+    def displayNumber(self):
+        return self.number
+    
+    def changeStateUse(self):
+        self.state=True
+        automaticUpdate(self)
+        
+    def automaticUpdate(self):
+        thread.sleep(1800)
+        self.state=False
+
+class washingMachine(machines):
+    
+    washerCount=0
+    
+    def __init__(self, blk, state, number):
+        self.blk=blk
+        self.state=state
+        self.number=number
+        washingMachine.washerCount+=1
+    
+    def totalWasher():
+        return washerCount
+    
+class dryingMachine(machines):
+
+    drierCount=0
+    
+    def __init__(self, blk, state, number):
+        self.blk=blk
+        self.state=state
+        self.number=number
+        dryingMachine.drierCount+=1
+        
+    def totalDrier():
+        return drierCount
+    
+def availableMachine(machineDic):
+
+    count=0
+    for e in machineDic.keys():
+        if machineDic[e].displayState()==False:
+            count+=1 
+    return count
 
 
-for x in range(1,10):
-    digit59=str(59.00+x/100.00)
-    digit57=str(57.00+x/100.00)
-    digit55=str(55.00+x/100.00)
-    washers59.append("W"+digit59)
-    driers59.append("D"+digit59)
-    washers57.append("W"+digit57)
-    driers57.append("D"+digit57)
-    washers55.append("W"+digit55)
-    driers55.append("D"+digit55)
+washerAvail={}
+drierAvail={}
 
+def updateAvailable():
+    washerAvail[55]=availableMachine(washer[55])
+    washerAvail[57]=availableMachine(washer[57])
+    washerAvail[59]=availableMachine(washer[59])
+    washerAvail[00]=washerAvail[55]+washerAvail[57]+washerAvail[59]
+    drierAvail[55]=availableMachine(drier[55])
+    drierAvail[57]=availableMachine(drier[57])
+    drierAvail[59]=availableMachine(drier[59])
+    drierAvail[00]=drierAvail[55]+drierAvail[57]+drierAvail[59]
 
-twashers=washers55+washers57+washers59
-tdriers=driers55+driers57+driers59
-
-driers.append(tdriers)
-driers.append(driers55)
-driers.append(driers57)
-driers.append(driers59)
-washers.append(twashers)
-washers.append(washers55)
-washers.append(washers57)
-washers.append(washers59)
-
-NumWashers=len(washers[0])
-NumDriers=len(driers[0])
-print NumDriers
-print NumWashers
-
+#Initial setup for driers and washers.
+#Register each of them to the block using dictionaries.
+washer={}
+drier={}
+washer55={}
+washer57={}
+washer59={}
+drier55={}
+drier57={}
+drier59={}
+tempWashersList=[]
+tempDriersList=[]
+tempWashersList.append(washer55)
+tempWashersList.append(washer57)
+tempWashersList.append(washer59)
+tempDriersList.append(drier55)
+tempDriersList.append(drier57)
+tempDriersList.append(drier59)
+blk=55
+dicIndx=0
+while blk<60:
+    for x in range(0,10):
+        was=washingMachine(blk,False,x)
+        dri=dryingMachine(blk,False,x)
+        tempWashersList[dicIndx][x]=was
+        tempDriersList[dicIndx][x]=dri
+    washer[blk]=tempWashersList[dicIndx]
+    drier[blk]=tempDriersList[dicIndx]
+    blk+=2
+    dicIndx+=1
+updateAvailable()
 
 @app.route('/')
 def api_root():
     return 'Welcome to SUTD Laundry\n'
 
-@app.route('/nwashers')
+@app.route('/wash')
 def api_washers():
-    return 'Number of Washers: ' + json.dumps(NumWashers)+'\n'
+    return json.dumps(washerAvail[00])
 
-@app.route('/ndriers')
+@app.route('/dry')
 def api_driers():
-    return 'Number of Driers: ' + json.dumps(NumDriers)+'\n'
+    return json.dumps(drierAvail[00])
 
-@app.route('/nwashers/<int:blk>')
+@app.route('/wash/<int:blk>')
 def api_washer(blk):
-    return 'Number of Washers:'
+    return json.dumps(washerAvail[blk])
 
-@app.route('/ndriers/<int:blk>')
+@app.route('/dry/<int:blk>')
 def api_drier(blk):
-    if blk==55:
-        ind=1
-    elif blk==57:
-        ind=2
-    elif blk==59:
-        ind=3
-    else:
-        blk="SUTD"
-        ind=0
-    return 'Number of Driers at '+json.dumps(blk)+' is '+ json.dumps(len(driers[ind]))+'\n'
+    return json.dumps(drierAvail[blk])
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run()
+
+
+
