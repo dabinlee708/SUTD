@@ -127,6 +127,24 @@ UserDB['huihui']=0531
 UserDB['admin']=1228
 
 
+def deregister_Machine(machineType, blk):
+    if machineType=='drier':
+        del drier[blk][(drierAvail[blk]-1)]
+        updateAvailable()
+    elif machineType=='washer':
+        del washer[blk][(washerAvail[blk]-1)]
+        updateAvailable()
+
+
+def register_Machine(machineType, blk):
+    if machineType=='drier':
+        drier[blk][(drierAvail[blk])]=dryingMachine(blk,False,(drierAvail[blk]))
+        updateAvailable()
+    elif machineType=='washer':
+        washer[blk][(washerAvail[blk])]=washingMachine(blk,False,(washerAvail[blk]))
+        updateAvailable()
+
+
 def check_auth(username, pw):
     if UserDb[string(username)]==pw:
         return True
@@ -177,55 +195,58 @@ def api_hello():
 
 @app.route('/wash')
 def api_washers():
-    return json.dumps(washerAvail[00])
+    if requests.headers['Content-Type']=='text/plain':
+        return requests.data(washerAvail[00])
+    elif request.headers['Content-Type']=='application/json':
+        return json.dumps(washerAvail[00])
+
 
 @app.route('/dry')
 def api_driers():
-    return json.dumps(drierAvail[00])
+    if requests.headers['Content-Type']=='text/plain':
+        return requests.data(drierAvail[00])
+    elif request.headers['Content-Type']=='application/json':
+        return json.dumps(drierAvail[00])
+
 
 @app.route('/wash/<int:blk>')
 def api_washer(blk):
-    return json.dumps(washerAvail[blk])
-
-@app.route('/dry/<int:blk>', methods = ['GET','PATCH','PUT','DELETE'])
-def api_drier(blk):
-    if request.method == 'GET':
-        return json.dumps(drierAvail[blk])
-
-    elif request.method == 'POST':
-        return "ECHO: POST\n"
-
-    elif request.method == 'PATCH':
-        return "ECHO: PACTH\n"
-
-    elif request.method == 'PUT':
-        return "ECHO: PUT\n"
-
-    elif request.method == 'DELETE':
-        return "ECHO: DELETE"
-
-@app.route('/echo', methods = ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'])
-def api_echo():
-    if request.method == 'GET':
-        return "ECHO: GET\n"
-
-    elif request.method == 'POST':
-        return "ECHO: POST\n"
-
-    elif request.method == 'PATCH':
-        return "ECHO: PACTH\n"
-
-    elif request.method == 'PUT':
-        return "ECHO: PUT\n"
-
-    elif request.method == 'DELETE':
-        return "ECHO: DELETE"
-
-# @app.route('/update/<Boolean:newState>')
-# def api_update(newState):
-#     
+    if requests.headers['Content-Type']=='text/plain':
+        return requests.data(washerAvail[blk])
+    elif request.headers['Content-Type']=='application/json':
+        return json.dumps(washerAvail[blk])
     
+    
+@app.route('/dry/<int:blk>', methods = ['GET','PUT','DELETE'])
+def api_drier(blk):
+    if requests.headers['Content-Type']=='text/plain':
+        if request.method == 'GET':
+            return requests.data(drierAvail[blk])
+        elif request.method == 'DELETE':
+            deregister_Machine('drier', blk)
+            return request.data('deregistered a drier at blk '+blk)
+        elif request.method == 'PUT':
+            register_Machine('drier', blk)
+            return requets.data('Added a new drier at blk '+blk)
+        else:
+            pass
+        
+    elif request.headers['Content-Type']=='application/json':
+        if request.method == 'GET':
+            return json.dumps(drierAvail[blk])
+        elif request.method == 'PUT':
+            register_Machine('drier', blk)
+            return json.dumps("Added a new drier at block "+blk)
+        elif request.method == 'DELETE':
+            deregister_Machine('washer', blk)
+            return json.dumps("deregistered a washer at block "+blk)
+        else:
+            pass
+    else:
+        pass
 
+
+    
 
 if __name__ == '__main__':
     app.run()
