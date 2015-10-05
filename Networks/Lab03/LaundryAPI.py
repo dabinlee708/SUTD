@@ -1,4 +1,6 @@
-from flask import Flask, url_for, json
+from flask import Flask, url_for, json, request, Response, jsonify
+from functools import wraps
+
 app = Flask(__name__)
 
 
@@ -57,6 +59,12 @@ class dryingMachine(machines):
         
     def totalDrier():
         return drierCount
+
+
+
+def check_auth(username, pw):
+    
+    return username
     
 def availableMachine(machineDic):
 
@@ -112,9 +120,60 @@ while blk<60:
     dicIndx+=1
 updateAvailable()
 
+
+UserDB={}
+UserDB['hatib']=0511
+UserDB['huihui']=0531
+UserDB['admin']=1228
+
+
+def check_auth(username, pw):
+    if UserDb[string(username)]==pw:
+        return True
+    else:
+        return False
+    
+def authenticate():
+    message = {'message': "Authenticate."}
+    resp = jsonify(message)
+    
+    resp.status_code = 401
+    resp.headers['WWW-Authenticate'] = 'Basic realm="Example"'
+    
+def require_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth:
+            return authenticate()
+        
+        elif not check_auth(auth.username, auth.password):
+            return authenticate()
+        
+        return f(*args, **kwargs)
+    return decorated
+
 @app.route('/')
 def api_root():
     return 'Welcome to SUTD Laundry\n'
+
+@app.route('/hello', methods = ['GET'])
+def api_hello():
+    data = {
+            'hello' : 'world',
+            'number': 3
+            }
+    js=json.dumps(data)
+    resp = Response(js, status=200, mimetype='application/json')
+    resp.headers['Link'] = 'http://127.0.0.1'
+    
+    return resp
+#     if 'name' in request.args:
+#         return json.dumps('Hello ' + request.args['name'])
+#     else:
+#         return json.dumps('Hello anonymous user')
+
+
 
 @app.route('/wash')
 def api_washers():
@@ -132,9 +191,27 @@ def api_washer(blk):
 def api_drier(blk):
     return json.dumps(drierAvail[blk])
 
+@app.route('/echo', methods = ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'])
+def api_echo():
+    if request.method == 'GET':
+        return "ECHO: GET\n"
 
+    elif request.method == 'POST':
+        return "ECHO: POST\n"
 
+    elif request.method == 'PATCH':
+        return "ECHO: PACTH\n"
 
+    elif request.method == 'PUT':
+        return "ECHO: PUT\n"
+
+    elif request.method == 'DELETE':
+        return "ECHO: DELETE"
+
+# @app.route('/update/<Boolean:newState>')
+# def api_update(newState):
+#     
+    
 
 
 if __name__ == '__main__':
