@@ -120,6 +120,9 @@ while blk<60:
     dicIndx+=1
 updateAvailable()
 
+print drierAvail
+print washerAvail
+
 
 UserDB={}
 UserDB['hatib']=0511
@@ -127,14 +130,16 @@ UserDB['huihui']=0531
 UserDB['admin']=1228
 
 
-def deregister_Machine(machineType, blk):
+def deregister_Machine(machineType, blk, id):
     if machineType=='drier':
+        tempNum=drier[blk][id].displayNumber
         del drier[blk][(drierAvail[blk]-1)]
         updateAvailable()
+        return 
+    
     elif machineType=='washer':
         del washer[blk][(washerAvail[blk]-1)]
         updateAvailable()
-
 
 def register_Machine(machineType, blk):
     if machineType=='drier':
@@ -158,7 +163,7 @@ def authenticate():
     resp.status_code = 401
     resp.headers['WWW-Authenticate'] = 'Basic realm="Example"'
     
-def require_auth(f):
+def requires_auth(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         auth = request.authorization
@@ -174,82 +179,118 @@ def require_auth(f):
 @app.route('/')
 def api_root():
     return 'Welcome to SUTD Laundry\n'
-
-@app.route('/hello', methods = ['GET'])
-def api_hello():
-    data = {
-            'hello' : 'world',
-            'number': 3
-            }
-    js=json.dumps(data)
-    resp = Response(js, status=200, mimetype='application/json')
-    resp.headers['Link'] = 'http://127.0.0.1'
     
-    return resp
-#     if 'name' in request.args:
-#         return json.dumps('Hello ' + request.args['name'])
-#     else:
-#         return json.dumps('Hello anonymous user')
+print drier[55][1].displayNumber()
 
-
-
-@app.route('/wash')
-def api_washers():
-    if requests.headers['Content-Type']=='text/plain':
-        return requests.data(washerAvail[00])
-    elif request.headers['Content-Type']=='application/json':
-        return json.dumps(washerAvail[00])
-
-
-@app.route('/dry')
-def api_driers():
-    if requests.headers['Content-Type']=='text/plain':
-        return requests.data(drierAvail[00])
-    elif request.headers['Content-Type']=='application/json':
-        return json.dumps(drierAvail[00])
-
-
-@app.route('/wash/<int:blk>')
-def api_washer(blk):
-    if requests.headers['Content-Type']=='text/plain':
-        return requests.data(washerAvail[blk])
-    elif request.headers['Content-Type']=='application/json':
-        return json.dumps(washerAvail[blk])
-    
-    
-@app.route('/dry/<int:blk>', methods = ['GET','PUT','DELETE'])
-def api_drier(blk):
-    if requests.headers['Content-Type']=='text/plain':
-        if request.method == 'GET':
-            return requests.data(drierAvail[blk])
-        elif request.method == 'DELETE':
-            deregister_Machine('drier', blk)
-            return request.data('deregistered a drier at blk '+blk)
-        elif request.method == 'PUT':
-            register_Machine('drier', blk)
-            return requets.data('Added a new drier at blk '+blk)
-        else:
-            pass
+@app.route('/dry', methods = ['GET','PUT','DELETE'])
+def api_drier():
+    print 3
+    blk=int(request.args['blk'])
+    print blk, type(blk)
+    if blk==55 or blk==57 or blk==59: 
+        if request.headers['Content-Type']=='text/plain':  
+            if request.method == 'GET':
+                availableDrier='Available Driers'
+                print type(blk)
+                for e in drier[blk]:
+                    availableDrier+=('Drier '+str(blk)+'-'+str(drier[blk][e].displayNumber())+'\n')
+                return availableDrier
+                    
+            elif request.method == 'DELETE':
+                number=deregister_Machine('drier', blk)
+                return 'deregistered a drier'+number+'at blk '+blk
+            elif request.method == 'PUT':
+                register_Machine('drier', blk)
+                return 'Added a new drier'+number+ 'at blk '+blk
+            else:
+                pass
         
-    elif request.headers['Content-Type']=='application/json':
-        if request.method == 'GET':
-            return json.dumps(drierAvail[blk])
-        elif request.method == 'PUT':
-            register_Machine('drier', blk)
-            return json.dumps("Added a new drier at block "+blk)
-        elif request.method == 'DELETE':
-            deregister_Machine('washer', blk)
-            return json.dumps("deregistered a washer at block "+blk)
-        else:
+        elif request.headers['Content-Type']=='application/json':
+            if request.method == 'GET':
+                for e in drier[blk]:
+                    availableDrier.append('Drier ',blk,'-',e.displayNumber())
+                return json.dumps(availableDrier)
+            elif request.method == 'PUT':
+                register_Machine('drier', blk)
+                retString="Added a new drier at block "+str(blk)
+                return json.dumps(retString)
+            elif request.method == 'DELETE':
+                print drierAvail
+                deregister_Machine('drier', blk)
+                print blk
+                print drierAvail
+                deregister_Machine('drier', blk)
+                retString="deregistered a drier at block "+str(blk)
+                return json.dumps(retString)
+            else:
+                pass
+        else:          
             pass
     else:
-        pass
-
-
+        if request.headers['Content-Type']=='text/plain':
+            return request.data(drierAvail[00])
+        elif request.headers['Content-Type']=='application/json':
+            return json.dumps(drierAvail[00])
+        else:
+            pass
     
+@app.route('/wash', methods = ['GET','PUT','DELETE'])
+def api_washer():
+    indx=0
+    blk=00
+    if request.data=='{"block":"55"}':
+        indx=1
+        blk=55
+    elif request.data=='{"block":"57"}':
+        indx=2
+        blk=57
+    elif request.data=='{"block":"59"}':
+        indx=3
+        blk=59
+    else:
+        pass
+    if request.data=='{"block":"55"}' or request.data=='{"block":"57"}' or request.data=='{"block":"59"}': 
+        if request.headers['Content-Type']=='text/plain':  
+            if request.method == 'GET':
+                return washerAvail[indx]
+            elif request.method == 'DELETE':
+                deregister_Machine('washer', blk)
+                return 'deregistered a washer at blk '+blk
+            elif request.method == 'PUT':
+                register_Machine('washer', blk)
+                return 'Added a new washer at blk '+blk
+            else:
+                pass
+        
+        elif request.headers['Content-Type']=='application/json':
+            if request.method == 'GET':
+                return json.dumps(washerAvail[blk])
+            elif request.method == 'PUT':
+                register_Machine('washer', blk)
+                retString="Added a new washer at block "+str(blk)
+                return json.dumps(retString)
+            elif request.method == 'DELETE':
+                deregister_Machine('washer', blk)
+                retString="deregistered a washer at block "+str(blk)
+                return json.dumps(retString)
+            else:
+                pass
+        else:          
+            pass
+    else:
+        if request.headers['Content-Type']=='text/plain':
+            return request.data(washerAvail[00])
+        elif request.headers['Content-Type']=='application/json':
+            return json.dumps(waherAvail[00])
+        else:
+            pass
+
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
+
+
+# curl -H "Content-type: application/json" -X PUT  http://127.0.0.1:5000/dry -d '{"block":"55"}'
 
 
 
