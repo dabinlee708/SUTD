@@ -4,6 +4,11 @@ import ast
 app = Flask(__name__)
 
 
+
+# This API serves users of SUTD Hostel's Laundry System
+# You can check, add, delete and change the machines in each block
+
+
 class machines:
     
     machineCount=0
@@ -387,7 +392,7 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 
-
+# Example Curl commands
 # curl -H "Content-type: text/plain" -X PATCH http://127.0.0.1:5000/drier?blk=55\&id=9\&state=False
 # curl -H "Content-type: text/plain" -X PATCH http://127.0.0.1:5000/dryier?blk=55\&id=9\&state=True
 # curl -H "Content-type: text/plain" -X GET http://127.0.0.1:5000/drier?blk=55
