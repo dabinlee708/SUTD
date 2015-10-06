@@ -187,9 +187,22 @@ def api_driers():
 def api_washer(blk):
     return json.dumps(washerAvail[blk])
 
-@app.route('/dry/<int:blk>')
+@app.route('/dry/<int:blk>', methods = ['GET','PATCH','PUT','DELETE'])
 def api_drier(blk):
-    return json.dumps(drierAvail[blk])
+    if request.method == 'GET':
+        return json.dumps(drierAvail[blk])
+
+    elif request.method == 'POST':
+        return "ECHO: POST\n"
+
+    elif request.method == 'PATCH':
+        return "ECHO: PACTH\n"
+
+    elif request.method == 'PUT':
+        return "ECHO: PUT\n"
+
+    elif request.method == 'DELETE':
+        return "ECHO: DELETE"
 
 @app.route('/echo', methods = ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'])
 def api_echo():
