@@ -58,10 +58,6 @@ class dryingMachine(machines):
         return drierCount
 
 
-
-def check_auth(username, pw):
-    
-    return username
     
 def availableMachine(machineDic):
 
@@ -128,6 +124,25 @@ UserDB['hatib']=0511
 UserDB['huihui']=0531
 UserDB['admin']=1228
 
+def check_auth(username, password):
+    return username == 'admin' and password =='pw'
+
+def authenticate():
+    return Response('Could not verify your access level for that URL.\n'
+    'You have to login with proper credentials', 401,
+    {'WWW-Authenticate': 'Basic realm="Login Required"'})
+
+def requires_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth or not check_auth(auth.username, auth.password):
+            return authenticate()
+        return f(*args, **kwargs)
+    return decorated
+
+
+
 
 def deregister_Machine(machineType, blk):
     if machineType=='drier':
@@ -168,42 +183,14 @@ def register_Machine(machineType, blk):
         return tempNumber
 
 
-def check_auth(username, pw):
-    
-    if UserDb[string(username)]==pw:
-        
-        return True
-    
-    else:
-        
-        return False
-    
-def authenticate():
-    message = {'message': "Authenticate."}
-    resp = jsonify(message)
-    resp.status_code = 401
-    resp.headers['WWW-Authenticate'] = 'Basic realm="Example"'
 
 
 
 
-    
-def requires_auth(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        auth = request.authorization
-        if not auth:
-            return authenticate()
-        
-        elif not check_auth(auth.username, auth.password):
-            return authenticate()
-        
-        return f(*args, **kwargs)
-    return decorated
-
-@app.route('/')
+@app.route('/secret')
+@requires_auth
 def api_root():
-    return 'Welcome to SUTD Laundry\n'
+    return 'secret address: 2.703'
     
 
 
@@ -407,3 +394,4 @@ if __name__ == '__main__':
 # curl -H "Content-type: text/plain" -X GET http://127.0.0.1:5000/drier?blk=55\&id=2
 # curl -H "Content-type: text/plain" -X POST http://127.0.0.1:5000/drier?blk=55
 # curl -H "Content-type: text/plain" -X DELETE http://127.0.0.1:5000/drier?blk=55
+# curl -v -u "admin:pw" http://127.0.0.1:5000/secrets
