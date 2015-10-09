@@ -113,22 +113,16 @@ tempDriersList.append(drier57)
 tempDriersList.append(drier59)
 blk=55
 dicIndx=0
-# while blk<60:
-#     for x in range(0,10):
-#         was=washingMachine(blk,"Available",x)
-#         dri=dryingMachine(blk,"Available",x)
-#         tempWashersList[dicIndx][x]=was
-#         tempDriersList[dicIndx][x]=dri
-#     washer[blk]=tempWashersList[dicIndx]
-#     drier[blk]=tempDriersList[dicIndx]
-#     blk+=2
-#     dicIndx+=1
-washer[55]=washer55
-washer[57]=washer57
-washer[59]=washer59
-drier[55]=drier55
-drier[57]=drier57
-drier[59]=drier59
+while blk<60:
+    for x in range(0,10):
+        was=washingMachine(blk,"Available",x)
+        dri=dryingMachine(blk,"Available",x)
+        tempWashersList[dicIndx][x]=was
+        tempDriersList[dicIndx][x]=dri
+    washer[blk]=tempWashersList[dicIndx]
+    drier[blk]=tempDriersList[dicIndx]
+    blk+=2
+    dicIndx+=1
 updateAvailable()
 
 
@@ -209,7 +203,7 @@ def api_root():
 
 
 
-@app.route('/drier', methods = ['GET','POST','DELETE', 'PATCH'])
+@app.route('/drier', methods = ['GET','POST','DELETE', 'PUT'])
 def api_drier():
 # Exception Handling for GET requests without arguments
     while True:
@@ -232,7 +226,10 @@ def api_drier():
         
     while True:
         try:
-            state=str(request.args['state'])
+
+            state=request.args['state']
+            print state
+#             state=str(request.args['state'])
             break;
         
         except:
@@ -243,9 +240,12 @@ def api_drier():
         
         if id!=-1:
             if state!=-1:
-                if request.method == 'PATCH':
-                    newState=drier[blk][id].changeStateUse(state)
-                    quer="Drier "+str(blk)+"-"+str(id)+" is now set to "+str(newState)
+                if request.method == 'PUT':
+                    quer=''
+                    drier[blk][id].changeStateUse(state)
+                    print blk, id, state, newState
+                    quer="Drier "+str(blk)+"-"+str(id)+" is now set to "+state
+                    print quer
                     if request.headers['Content-Type']=='text/plain':
                         return quer
                     elif request.headers['Content-Type']=='application/json':
@@ -303,7 +303,7 @@ def api_drier():
 
 
     
-@app.route('/washer', methods = ['GET','POST','DELETE'])
+@app.route('/washer', methods = ['GET','POST','DELETE','PUT'])
 def api_washer():
 # Exception Handling for GET requests without arguments
     while True:
@@ -327,6 +327,7 @@ def api_washer():
     while True:
         try:
             state=str(request.args['state'])
+            print state
             break;
         
         except:
@@ -337,7 +338,8 @@ def api_washer():
         
         if id!=-1:
             if state!=-1:
-                if request.method == 'PATCH':
+                if request.method == 'PUT':
+                    print "you are at put"
                     newState=washer[blk][id].changeStateUse(state)
                     quer="Washer "+str(blk)+"-"+str(id)+" is now set to "+str(newState)
                     if request.headers['Content-Type']=='text/plain':
@@ -401,8 +403,8 @@ if __name__ == '__main__':
 
 
 # Example Curl commands
-# curl -H "Content-type: text/plain" -X PATCH http://127.0.0.1:5000/drier?blk=55\&id=9\&state=False
-# curl -H "Content-type: text/plain" -X PATCH http://127.0.0.1:5000/dryier?blk=55\&id=9\&state=True
+# curl -H "Content-type: text/plain" -X PUT http://127.0.0.1:5000/drier?blk=55\&id=9\&state=False
+# curl -H "Content-type: text/plain" -X PUT http://127.0.0.1:5000/dryier?blk=55\&id=9\&state=True
 # curl -H "Content-type: text/plain" -X GET http://127.0.0.1:5000/drier?blk=55
 # curl -H "Content-type: text/plain" -X GET http://127.0.0.1:5000/drier?blk=55\&id=2
 # curl -H "Content-type: text/plain" -X POST http://127.0.0.1:5000/drier?blk=55
