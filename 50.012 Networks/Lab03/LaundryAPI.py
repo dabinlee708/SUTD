@@ -70,6 +70,7 @@ def availableMachine(machineDic):
     for e in machineDic.keys():
         if machineDic[e].displayState()==False:
             count+=1 
+    
     return count
 
 
@@ -90,6 +91,7 @@ def updateAvailable():
     drierAvail[59]=availableMachine(drier[59])
     drierAvail[00]=drierAvail[55]+drierAvail[57]+drierAvail[59]
     printList() 
+    print 5
 
 #Initial setup for driers and washers.
 #Register each of them to the block using dictionaries.
@@ -111,16 +113,22 @@ tempDriersList.append(drier57)
 tempDriersList.append(drier59)
 blk=55
 dicIndx=0
-while blk<60:
-    for x in range(0,10):
-        was=washingMachine(blk,"Available",x)
-        dri=dryingMachine(blk,"Available",x)
-        tempWashersList[dicIndx][x]=was
-        tempDriersList[dicIndx][x]=dri
-    washer[blk]=tempWashersList[dicIndx]
-    drier[blk]=tempDriersList[dicIndx]
-    blk+=2
-    dicIndx+=1
+# while blk<60:
+#     for x in range(0,10):
+#         was=washingMachine(blk,"Available",x)
+#         dri=dryingMachine(blk,"Available",x)
+#         tempWashersList[dicIndx][x]=was
+#         tempDriersList[dicIndx][x]=dri
+#     washer[blk]=tempWashersList[dicIndx]
+#     drier[blk]=tempDriersList[dicIndx]
+#     blk+=2
+#     dicIndx+=1
+washer[55]=washer55
+washer[57]=washer57
+washer[59]=washer59
+drier[55]=drier55
+drier[57]=drier57
+drier[59]=drier59
 updateAvailable()
 
 
@@ -389,7 +397,7 @@ def api_washer():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
 
 # Example Curl commands
