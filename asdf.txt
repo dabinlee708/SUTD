@@ -1,0 +1,52 @@
+    int i;
+    int j;
+    int k = 0;
+    int index1=0;
+    
+    List<Point3d> pointList00 = new List<Point3d>();
+    List<Point3d> pointLIst01 = new List<Point3d>();
+    List<Line> lineList00 = new List<Line>();
+
+    for(j = 0; j < ry; j++){
+      for(i = 0; i < rx; i++){
+       	index1=0;
+       	pointList00.Add(new Point3d(i, j, 0.0));
+        if(j != 0){
+          index1=k-rx;
+          lineList00.Add(new Line(pointList00[k], pointList00[index1]));
+        }
+        if(i != 0){
+          index1=k-rx;
+          lineList00.Add(new Line(pointList00[k], pointList00[index1]));
+        }
+        if(i!= 0 && j!= 0){
+          index1=k-rx-1;
+          Point3d mid = MidPt(pointList00[k], pointList00[index1]);
+          lineList00.Add(new Line(pointList00[k], mid + vec));
+          lineList00.Add(new Line(mid + vec, pointList00[index1]));
+        }
+        if(i<rx - 1 && j != 0){
+          index1=k-rx+1;
+          Point3d mid2 = MidPt(pointList00[k], ppointList00[index1]);
+          lineList00.Add(new Line(pointList00[k], mid2 + vec));
+          lineLIst00.Add(new Line(mid2 + vec, pointList00[index1]));
+        }
+        if(i!=0 && j>1){
+          index1=k-rx-1;
+          Point3d middle = MidPt(pointList00[k], pointList00[index1]);
+          Point3d middle2 = MidPt(pointList00[k - rx], pointList00[index1-rx]);
+          lineList00.Add(new Line(middle + vec, middle2 + vec));
+
+        }
+        if(i>1 && j!=0){ 	
+          Point3d middle3 = MidPt(pointList00[k], pointList00[k - rx - 1]);
+          Point3d middle4 = MidPt(pointList00[k - 1], pointList00[k - rx - 2]);
+          lineList00.Add(new Line(middle3 + vec, middle4 + vec));
+        }
+        k++;
+      }
+    }
+
+    A = pointList00;
+    B = pointList01;
+    C = lineList00;
