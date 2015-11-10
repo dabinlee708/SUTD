@@ -1,0 +1,124 @@
+private void RunScript(Surface s, int nu, int nv, double x, double y, ref object A, ref object B, ref object C, ref object D, ref object E)
+  {
+    s.SetDomain(0, new Interval(0.0, 1.0));
+    s.SetDomain(1, new Interval(0.0, 1.0));
+    double double_value_u = 1.0 / (double) (nu - 1);
+    double double_value_v = 1.0 / (double) (nv - 1);
+    List<Point3d> list_points_3d_pts_001 = new List<Point3d>();
+    List<List<Point3d>> point3d_list_list_001_rows = new List<List<Point3d>>();
+    List<List<Point3d>> point3d_list_list_002_columns = new List<List<Point3d>>();
+    int iteration_variable_0;
+    int iteration_variable_1;
+    for (iteration_variable_1 = 0; iteration_variable_1 < nv; ++iteration_variable_1)
+    {
+      List<Point3d> point_3d_list_001 = new List<Point3d>();
+      double double_val = iteration_variable_1 * double_value_v;
+
+      for (iteration_variable_0 = 0; iteration_variable_0 < nu; ++iteration_variable_0)
+      {
+        double double_value_U_002 = iteration_variable_0 * double_value_u;
+
+        Point3d point_3d_reference_t = new Point3d(s.PointAt(double_value_U_002, double_val));
+        point_3d_list_001.Add(point_3d_reference_t);
+
+        list_points_3d_pts_001.Add(point_3d_reference_t);
+      }
+
+      point3d_list_list_001_rows.Add(point_3d_list_001);
+    }
+
+
+    for (iteration_variable_0 = 0; iteration_variable_0 < nu; ++iteration_variable_0)
+    {
+      List<Point3d> point_3d_list_columns = new List<Point3d>();
+      double double_value_U_002 = iteration_variable_0 * double_value_u;
+
+      for (iteration_variable_1 = 0; iteration_variable_1 < nv; ++iteration_variable_1)
+      {
+        double double_val = iteration_variable_1 * double_value_v;
+        Point3d point_3d_reference_t = new Point3d(s.PointAt(double_value_U_002, double_val));
+        point_3d_list_columns.Add(point_3d_reference_t);
+      }
+      point3d_list_list_002_columns.Add(point_3d_list_columns);
+    }
+
+    List <Curve> list_curves_rc = new List <Curve> ();
+    
+    int iteration_variable_2 = 0;
+    
+    for (iteration_variable_2 = 0; iteration_variable_2 < point3d_list_list_001_rows.Count; iteration_variable_2++){
+      list_curves_rc.Add(Curve.CreateInterpolatedCurve(point3d_list_list_001_rows[iteration_variable_2], 3));
+    }
+
+    List <Curve> list_curves_cc = new List <Curve> ();
+    
+    int iteration_variable_3 = 0;
+
+    for (iteration_variable_3 = 0; iteration_variable_3 < point3d_list_list_002_columns.Count; iteration_variable_3++){
+      list_curves_cc.Add(Curve.CreateInterpolatedCurve(point3d_list_list_002_columns[iteration_variable_3], 3));
+    }
+
+
+    List <List<Point3d>> point3d_listInlist_a = new List <List<Point3d>>();
+    List<GeometryBase> geometry_base_list_a = new List<GeometryBase>();
+    List <Curve> list_curve_base_01 = new List <Curve>();
+
+    for (int iterator_0b = 0; iterator_0b < nv - 1; iterator_0b++)
+    {
+      double double_value_for_robert = iterator_0b * double_value_v;
+      for(int iterator_0a = 0; iterator_0a < nu - 1; iterator_0a++)
+      {
+        double q = iterator_0a * double_value_u;
+        
+        List<Point3d> point_3d_list_forward = new List<Point3d>();
+        
+        point_3d_list_forward.Add(point3d_list_list_001_rows[iterator_0b][iterator_0a]);
+       
+        point_3d_list_forward.Add(point3d_list_list_001_rows[iterator_0b][iterator_0a + 1]);
+        point_3d_list_forward.Add(point3d_list_list_001_rows[iterator_0b + 1][iterator_0a + 1]); 
+
+        point_3d_list_forward.Add(point3d_list_list_001_rows[iterator_0b + 1][iterator_0a]);
+        point_3d_list_forward.Add(point3d_list_list_001_rows[iterator_0b][iterator_0a]);
+
+        point3d_listInlist_a.Add(point_3d_list_forward);
+
+        Vector3d vector_3d_vecot_c = (point3d_list_list_001_rows[iterator_0b][iterator_0a + 1] - point3d_list_list_001_rows[iterator_0b][iterator_0a]);
+        Vector3d vector_3d_vector_y = (point3d_list_list_001_rows[iterator_0b + 1][iterator_0a] - point3d_list_list_001_rows[iterator_0b][iterator_0a]);
+        Point3d ori = point3d_list_list_001_rows[iterator_0b][iterator_0a];
+        vector_3d_vecot_c.Unitize();
+
+        Curve new_Curvefor_3d_references = Curve.CreateInterpolatedCurve(point_3d_list_forward, 1);
+        list_curve_base_01.Add(new_Curvefor_3d_references);
+        GeometryBase geometry_base_copy_for_3d = new_Curvefor_3d_references.Duplicate();
+        Plane refereance_plane_1p;
+        Plane reference_plane_2p = new Plane(ori, vector_3d_vecot_c, vector_3d_vector_y);
+        s.FrameAt(q, double_value_for_robert, out refereance_plane_1p);
+        Transform transform_xf_01 = new Transform(1.0);
+        transform_xf_01 *= Transform.PlanarProjection(reference_plane_2p);
+        transform_xf_01 *= Transform.Rotation(vector_3d_vecot_c, Vector3d.XAxis, ori);
+
+        reference_plane_2p.Transform(transform_xf_01);
+        Transform transform_x2f_ref = new Transform(1.0);
+        transform_x2f_ref *= Transform.ChangeBasis(Plane.WorldXY, reference_plane_2p);
+
+        Transform transform_x3f_ref = new Transform(1.0);
+        transform_x3f_ref *= Transform.Translation(new Vector3d(q * x, double_value_for_robert * y, 0));
+        transform_x3f_ref *= Transform.PlanarProjection(Plane.WorldXY);
+
+
+        geometry_base_copy_for_3d.Transform(transform_xf_01);
+        geometry_base_copy_for_3d.Transform(transform_x2f_ref);
+        geometry_base_copy_for_3d.Transform(transform_x3f_ref);
+
+        geometry_base_list_a.Add(geometry_base_copy_for_3d);
+      }
+    }
+
+    A = list_points_3d_pts_001;
+    B = list_curves_rc;
+    C = list_curves_cc;
+    D = list_curve_base_01;
+    E = geometry_base_list_a;
+
+
+  }
