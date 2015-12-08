@@ -40,6 +40,6 @@ def book(s,slot,sectionID):
 		print "Booking unsuccessful."
 	return r.text
 	
-a = book(login(),59728,36992)
+a = book(login(),59728,37018)
 
-print a
+# print a
