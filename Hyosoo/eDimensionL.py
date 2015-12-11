@@ -40,6 +40,20 @@ def book(s,slot,sectionID):
 		print "Booking unsuccessful."
 	return r.text
 	
+def book_wr(session, slot, sectionID):
+	a = book(session,slot, sectionID)
+	if a.status_code==200:
+		print "Booking successful"
+	else:
+		while a.status_code!=200:
+			a = book(session,slot, sectionID)
+			if a.status_code == 200:
+				print "Booking successful"
+				break;
+			else:
+				print "Booking unsuccessful. Trying again ..."
+
+	
 a = book(login(),59728,36992)
 
 print a
