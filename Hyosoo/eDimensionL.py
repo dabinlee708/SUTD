@@ -16,6 +16,7 @@ unbook="http://edimension.sutd.edu.sg/mod/scheduler/view.php?id=37018&what=disen
 log_val =dict(
 				username = '1000727',
 				password = 'Chwb5278!')
+laser_machine =36992
 def login():
 	print "logging into eDimension"
 	s= requests.session()
@@ -39,7 +40,7 @@ def book(s,slot,sectionID):
 	else:
 		print "Booking unsuccessful."
 	return r.text
-	
+
 def book_wr(session, slot, sectionID):
 	a = book(session,slot, sectionID)
 	if a.status_code==200:
