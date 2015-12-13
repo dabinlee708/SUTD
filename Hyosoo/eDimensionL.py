@@ -55,6 +55,6 @@ def book_wr(session, slot, sectionID):
 				print "Booking unsuccessful. Trying again ..."
 
 	
-a = book(login(),59728,36992)
+a = book(login(),59728,37018)
 
-print a
+# print a
