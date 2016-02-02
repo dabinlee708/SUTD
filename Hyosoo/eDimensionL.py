@@ -10,7 +10,7 @@ from lxml.html import parse
 # Try to write slotID down every week to learn the pattern
 
 # 2015/12/14 11:54 laser Machine (SL2) - Week 14
-# http://edimension.sutd.edu.sg/mod/scheduler/view.php?id=35750
+# http://edimension2015.sutd.edu.sg/mod/scheduler/view.php?id=35750
 
 # Monday,	14 December 2015 2:00pm	3:00pm 59739
 # Wednesday,16 December 2015 12:00pm 1:00pm 59755
@@ -41,19 +41,18 @@ from lxml.html import parse
 
 
 
-login_add = "http://edimension.sutd.edu.sg/login/index.php"
-lase1 = "http://edimension.sutd.edu.sg/mod/scheduler/view.php?what=savechoice&id="
+login_IP="http://edimension2015.sutd.edu.sg/login/index.php"
+lase1 = "http://edimension2015.sutd.edu.sg/mod/scheduler/view.php?what=savechoice&id="
 lase2 = "&slotid="
-unbook="http://edimension.sutd.edu.sg/mod/scheduler/view.php?id=37018&what=disengage"
+unbook="http://edimension2015.sutd.edu.sg/mod/scheduler/view.php?id=37018&what=disengage"
 log_val =dict(
 				username = '1000727',
 				password = 'Chwb5278!')
 laser_machine =36992
 def login():
-	print "logging into eDimension"
 	s= requests.session()
 	while True:
-		r = s.post(login_add, data = log_val)
+		r = s.post(login_IP, data = log_val)
 		if r.status_code==200:
 			print "Log-in successful"
 			break;
@@ -82,7 +81,7 @@ def book(s,slot,sectionID):
 	
 # a = book(login(),35756,59745)
 # s= login()
-# a=s.get("http://edimension.sutd.edu.sg/course/view.php?id=16")
+# a=s.get("http://edimension2015.sutd.edu.sg/course/view.php?id=16")
 # soup = BeautifulSoup(a.text, 'html.parser')
 # print soup.title.string
 # # soup.prettify()
@@ -93,8 +92,8 @@ def book(s,slot,sectionID):
 # 		return b.a.text
 
 def slot_scanner(s, sectionID):
-	print "http://edimension.sutd.edu.sg/mod/scheduler/view.php?id="+str(sectionID)
-	a = s.get("http://edimension.sutd.edu.sg/mod/scheduler/view.php?id="+str(sectionID))	
+	print "http://edimension2015.sutd.edu.sg/mod/scheduler/view.php?id="+str(sectionID)
+	a = s.get("http://edimension2015.sutd.edu.sg/mod/scheduler/view.php?id="+str(sectionID))	
 	soup = BeautifulSoup(a.text, 'html.parser')
 	b = soup.find('table', {"class":"generaltabel"}, id='yui_3_5_1_1_1450068325681_1475')
 	print b
@@ -102,7 +101,7 @@ def slot_scanner(s, sectionID):
 
 def section_scanner(s):
 	print "Accessing Fab Lab booking page"
-	a = s.get("http://edimension.sutd.edu.sg/course/view.php?id=16")
+	a = s.get("http://edimension2015.sutd.edu.sg/course/view.php?id=16")
 	soup = BeautifulSoup(a.text, 'html.parser')
 	b = soup.find_all('div',{"class":"mod-indent"})
 	for c in b:
@@ -120,8 +119,5 @@ s = login()
 time.ctime()
 
 
-while True:
-	a = s.get("http://edimension.sutd.edu.sg")
-	print "eDimension:\t\t:"+a.headers['Date']
-	if a.headers['Date']
-# book(s,slot,59753)
+print section_scanner(s)
+# book(s,section_scanner(s),59753)

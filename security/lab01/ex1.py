@@ -7,7 +7,7 @@
 import sys
 import argparse
 
-def doStuff(filein,fileout, key):
+def doStuff(filein,fileout):
     # open file handles to both files
     fin  = open(filein)       # by default, read mode
     fout = open(fileout,'w')  # write mode
