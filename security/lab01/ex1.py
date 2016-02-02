@@ -41,7 +41,7 @@ if __name__=="__main__":
     filein=args.filein
     fileout=args.fileout
 
-    doStuff(filein,'encrypted_sherlock.txt')
+    doStuff(filein,fileout)
 
     # all done
 
