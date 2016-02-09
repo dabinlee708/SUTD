@@ -7,15 +7,15 @@ import operator
 
 # Part 1: Brute Force Attack
 
-def shifter(encodedstring,key):
-    outputString=""
-    for a in encodedstring:
-        outputString+=chr((ord(a)+key)%256)
-    return outputString
+# def shifter(encodedstring,key):
+#     outputString=""
+#     for a in encodedstring:
+#         outputString+=chr((ord(a)+key)%256)
+#     return outputString
 
-print ("Calling the API now...")
-url="http://scy-phy.net:8080/"
-headers={'Content-Type':'application/json'}
+# print ("Calling the API now...")
+# url="http://scy-phy.net:8080/"
+# headers={'Content-Type':'application/json'}
 # r=requests.get(url+'challenges/caesar')
 # data=r.json()
 # print("Obtained challenge (in hex): %s"%data['challenge'])
@@ -40,12 +40,16 @@ headers={'Content-Type':'application/json'}
 # There was nothing so very remarkable in that; nor did Alice think it so very much out of the way to hear the Rabbit say to itself, 'Oh dear! Oh dear! I shall be late!' (when she thought it over afterwards, it occurred to her that she ought to have wondered at this, but at the time it all seemed quite natural); but when the Rabbit actually took a watch out of its waistcoat-pocket, and looked at it, and
 
 # Part 2: Frequency Analysis
+print ("Calling the API now...")
+url="http://scy-phy.net:8080/"
+headers={'Content-Type':'application/json'}
 r=requests.get(url+'challenges/substitution')
 data=r.json()
 print("Obtained challenge (in hex): %s"%data['challenge'])
+
 m = data['challenge'].replace("0x","")
 parseList=[m[i:i+2] for i in range(0, len(m), 2)]
-print parseList
+# print parseList
 frequencyDictionary={}
 
 for a in parseList:
@@ -53,26 +57,23 @@ for a in parseList:
 		frequencyDictionary[a]+=1
 	else:
 		frequencyDictionary[a]=1
-print frequencyDictionary
+# print frequencyDictionary
 
-frequencyDictionary=sorted(frequencyDictionary.items(), key=lambda x: (-x[1], x[0]))
-print frequencyDictionary, type(frequencyDictionary)
+frequencyList=sorted(frequencyDictionary.items(), key=lambda x: (-x[1], x[0]))
 
-for key, value in frequencyDictionary.iteritems():
-    print key, value
+print len(frequencyList)
 
-# print "2,",max(frequencyDictionary, key=operator.itemgetter(1))[:2]
-# print "3,",max(frequencyDictionary, key=operator.itemgetter(1))[:2]
-translatedList=[]
+translationList=[' ', 'e', 't', 'a', 'n', 'h', 'o', 'r', 's', 'd', 'i','l','g','w','p','u','c','m','f',',','b','k','y','.','v',';',"'",":",'j']
+translationDictionary={}
+for a in frequencyList:
+	print a
+	translationDictionary[a[0][0:3]]=translationList[frequencyList.index(a)]
+print translationDictionary
+
+
+DecryptedString=""
 for a in parseList:
-	if a==max(frequencyDictionary, key=operator.itemgetter(1))[0]:
-		translatedList.append("e")
-	else:
-		translatedList.append(a)
-print translatedList
+	print translationDictionary[a]
+	DecryptedString+=translationDictionary[a]
 
-# for a in parseList:
-# 	if a==max(frequencyDictionary, key=operator.itemgetter(1))[0]:
-# 		translatedList.append("e")
-# 	else:
-# 		translatedList.append(a)
+print DecryptedString

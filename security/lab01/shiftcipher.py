@@ -30,24 +30,6 @@ def doStuff(filein,fileout,mode,key):
                 outputString+=chr((ord(a)+key)%256)
             fout.write(outputString)
 
-
-
-    # if key>=0 or key<=255:
-    #     if mode.lower()=="e":
-    #         for a in c:
-    #             outputString+=chr((ord(a)+int(key)%256)
-    #     elif mode.lower()=="d":
-    #         for a in c:
-    #             outputString+=chr((ord(a)-int(key)%256)
-    #     else:
-    #         print "Wrong mode. Please select either 'e' for encryption or 'd' for decryption."
-    #     fout.write(outputString)
-
-    # else:
-    #     print "key can be 0 - 255"
-
-    # and write to fileout
-
 # our main function
 if __name__=="__main__":
     # set up the argument parser
