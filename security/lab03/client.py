@@ -62,46 +62,22 @@ headers={'Content-Type':'application/json'}
 # 	r = requests.post(url+'solutions/pwdhash', headers=headers,data=json.dumps(payload))
 # 	print("Obtained response: %s"%r.text)
 
-gen4 = itertools.product([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z],[4])
-gen3 = itertools.product("abcdefghijklmnopqrstuvwxyz",[3])
-gen2 = itertools.product("abcdefghijklmnopqrstuvwxyz",[2])
-gen1 = itertools.product("abcdefghijklmnopqrstuvwxyz",[1])
+gen4 = itertools.product("abcdefghijklmnopqrstuvwxyz",repeat=4)
 hashList=[]
 for a in range(15):
 	r = requests.get(url+'challenges/pwdhash')
 	data=r.json()
 	hashList.append(data['challenge'])
-
-print hashList
-
-for password in gen4:   
+foundCount=0
+for password in gen4:  
     m4=hashlib.md5()
     digit4=''.join(password[0]+password[1]+password[2]+password[3])
     m4.update(digit4)
     # print digit4
     if "0x"+m4.hexdigest() in hashList:
+        foundCount+=1
         print  digit4," matches ", m4.hexdigest()
-
-for password in gen3:  
-    m3=hashlib.md5()
-    digit3=''.join(password[0]+password[1]+password[2])
-    m3.update(digit3)
-    if "0x"+m3.hexdigest() in hashList:
-        print  digit3," matches ", m3.hexdigest()
-
-for password in gen2: 
-    m2=hashlib.md5()
-    digit2=''.join(password[0]+password[1])
-    m2.update(digit2)
-    if "0x"+m2.hexdigest() in hashList:
-        print  digit2," matches ", m2.hexdigest()
-
-for password in gen1:                                                     
-    m1=hashlib.md5()
-    digit1=''.join(password[0])
-    m1.update(digit1)
-    if "0x"+m1.hexdigest() in hashList:
-    	print  digit1," matches ", m1.hexdigest()
+print foundCount," matches were found!"
 
 
 
