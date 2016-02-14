@@ -6,9 +6,15 @@ import binascii
 import requests
 import json
 import hashlib
+import os
 from pprint import pprint
 import itertools
 from itertools import product
+import time
+import random
+
+
+
 # XOR two strings with each other, return string
 def xorString(s1,s2):
     rval = [ord(a) ^ ord(b) for a,b in zip(s1,s2)]
@@ -51,7 +57,7 @@ headers={'Content-Type':'application/json'}
 # print("Obtained response: %s"%r.text)
 
 # Demo of the hash part
-# Dabin and Ivan
+# Dabin
 # Part 4
 # passwordList=["asdd","efgh","ijkl","mnop","qrst"]
 # solution="test"
@@ -62,31 +68,82 @@ headers={'Content-Type':'application/json'}
 # 	r = requests.post(url+'solutions/pwdhash', headers=headers,data=json.dumps(payload))
 # 	print("Obtained response: %s"%r.text)
 
+print "Part 5: MD5 Hash being retrieved from scy-phy.net"
 gen4 = itertools.product("abcdefghijklmnopqrstuvwxyz",repeat=4)
 hashList=[]
+password_list=[]
 for a in range(15):
 	r = requests.get(url+'challenges/pwdhash')
 	data=r.json()
 	hashList.append(data['challenge'])
+
+bruteForce_start=time.time()
 foundCount=0
 for password in gen4:  
     m4=hashlib.md5()
     digit4=''.join(password[0]+password[1]+password[2]+password[3])
     m4.update(digit4)
-    # print digit4
     if "0x"+m4.hexdigest() in hashList:
-        foundCount+=1
+        foundCount+=1   
+        password_list.append(digit4)
         print  digit4," matches ", m4.hexdigest()
-print foundCount," matches were found!"
+print foundCount," matches were found within "+"--- %s seconds ---"% (time.time()-bruteForce_start)
+
+# # Part 6
+# filetime=time.time()
+# try:
+    # fout = open("hashList"+str(filetime)+".txt")
+#     hashListFile=fout.read()
+# except:
+
+# fout = open("hashList.txt",'w')
+# for a in hashList:
+#     fout.write(a.replace('0x',"")+'\n')
+# fout.close()
 
 
+# rainbow_generate_start=time.time()
+# os.system("./rtgen md5 loweralpha 1 4 0 3800 475254 0")
+# print "Rainbow table generation took "+"--- %s seconds ---"% (time.time()-rainbow_generate_start)
 
-# print hashList
-# print (hex(97))
-# 97-122
+# rainbow_sort_start=time.time()
+# os.system("./rtsort md5_loweralpha#1-4_0_3800x475254_0.rt")
+# print "Rainbow table sorting took "+"--- %s seconds ---"% (time.time()-rainbow_sort_start)
+
+# rainbow_lookup_start=time.time()
+# os.system("./rcrack md5_loweralpha#1-4_0_3800x475254_0.rt -l hashList.txt")
+# print "Rainbow table scanning took "+"--- %s seconds ---"% (time.time()-rainbow_lookup_start)
 
 
+# fout.close()
+# part 7
+# salt=chr(random.randint(0,25)+97)
+# salted_hash_list=[]
+# for a in password_list:
+#     a=salt+a
+#     m=hashlib.md5()
+#     m.update(a)
+#     salted_hash_list.append(m.hexdigest())
+# fout = open("salted_hash_list.txt",'w')
+# for a in salted_hash_list:  
+#     fout.write(a.replace('0x',"")+'\n')
 
-# r = requests.get(url+'challenges/pwdhash')
-# data=r.json()
-# print("Received hash challenge %s"%data['challenge'])
+# salted_rainbow_generate_start=time.time()
+# os.system("./rtgen md5 loweralpha 5 5 0 3800 475254 0")
+# print "salted_rainbow table generation took "+"--- %s seconds ---"% (time.time()-salted_rainbow_generate_start)
+
+# salted_rainbow_sort_start=time.time()
+# os.system("./rtsort md5_loweralpha#5-5_0_3800x475254_0.rt")
+# print "salted_rainbow table sorting took "+"--- %s seconds ---"% (time.time()-salted_rainbow_sort_start)
+
+# salted_rainbow_lookup_start=time.time()
+# os.system("./rcrack md5_loweralpha#5-5_0_3800x475254_0.rt -l salted_hash_list.txt")
+# print "salted_rainbow table scanning took "+"--- %s seconds ---"% (time.time()-salted_rainbow_lookup_start)
+# the code only works on terminal and it took 6.79 seconds to crack all 15 passwords.
+# Brute forcing took 1.92 seconds
+# Rainbow table generation took 101.55 seconds
+# Rainbow table lookup took 6.42 seconds
+# Salted rainbow table generation took 106.70 seconds
+# Salted rainbow table lookup took 6.92 seconds
+
+
