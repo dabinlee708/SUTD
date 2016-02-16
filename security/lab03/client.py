@@ -26,35 +26,41 @@ url="http://scy-phy.net:8080/"
 headers={'Content-Type':'application/json'}
 
 # # Lab 3 skeleton part
-# r = requests.get(url+'challenges/otpcrc')
-# data=r.json()
-# print("Obtained challenge ciphertext: %s with len %d"%(data['challenge'],len(data['challenge'])))
+r = requests.get(url+'challenges/otpcrc')
+data=r.json()
+print("Obtained challenge ciphertext: %s with len %d"%(data['challenge'],len(data['challenge'])))
 
-# # translate from hex to ascii range
-# s = data['challenge'].replace('0x',"")
-# s = binascii.unhexlify(s)
+# translate from hex to ascii range
+s = data['challenge'].replace('0x',"")
+s = binascii.unhexlify(s)
 
-# # we know that the last 32 bit are the CRC checksum
-# # in ascii, that are 4 characters
-# encrypted_m=s[:-4]
-# encrypted_crc=s[-4:]
+# we know that the last 32 bit are the CRC checksum
+# in ascii, that are 4 characters
+encrypted_m=s[:-4]
+encrypted_crc=s[-4:]
 
-# # apply the masks (these do nothing actually)
-# mask = "\x00"*(len(encrypted_m))
-# crcmask = "\x00"*(len(encrypted_crc))
-# # to check a failed crc manipulation:
-# #crcmask = "\x01"*(len(encrypted_crc))
+# apply the masks (these do nothing actually)
+OriginalString='               000      0       '
+Altered_String='               727      4       '
+xored_String=xorString(OriginalString, Altered_String)
+mask = xored_String
+crcmask = "\x00"*(len(encrypted_crc))
+magic = 0xFFFFFFFF
+crcmask =(binascii.crc32(mask,magic) & magic) ^ magic
+crcmask = binascii.unhexlify('%08x'%crcmask)
+# to check a failed crc manipulation:
+#crcmask = "\x01"*(len(encrypted_crc))
 
-# manipulated_encrypted_m = xorString(encrypted_m,mask)
-# manipulated_encrypted_crc = xorString(encrypted_crc,crcmask)
-# solution = manipulated_encrypted_m + manipulated_encrypted_crc
+manipulated_encrypted_m = xorString(encrypted_m,mask)
+manipulated_encrypted_crc = xorString(encrypted_crc,crcmask)
+solution = manipulated_encrypted_m + manipulated_encrypted_crc
 
-# # ascii hex encode them
-# solutionHex = '0x'+''.join(['%x'%ord(i) for i in solution])
+# ascii hex encode them
+solutionHex = '0x'+''.join(['%02x'%ord(i) for i in solution])
 
-# payload = {'cookie':data['cookie'],'solution':solutionHex}
-# r = requests.post(url+'solutions/otpcrc', headers=headers,data=json.dumps(payload))
-# print("Obtained response: %s"%r.text)
+payload = {'cookie':data['cookie'],'solution':solutionHex}
+r = requests.post(url+'solutions/otpcrc', headers=headers,data=json.dumps(payload))
+print("Obtained response: %s"%r.text)
 
 # Demo of the hash part
 # Dabin
@@ -90,29 +96,28 @@ for password in gen4:
 print foundCount," matches were found within "+"--- %s seconds ---"% (time.time()-bruteForce_start)
 
 # # Part 6
-# filetime=time.time()
-# try:
-    # fout = open("hashList"+str(filetime)+".txt")
-#     hashListFile=fout.read()
-# except:
+filetime=time.time()
+try:
+    fout = open("hashList"+str(filetime)+".txt")
+    hashListFile=fout.read()
+except:
+    fout = open("hashList.txt",'w')
+for a in hashList:
+    fout.write(a.replace('0x',"")+'\n')
+fout.close()
 
-# fout = open("hashList.txt",'w')
-# for a in hashList:
-#     fout.write(a.replace('0x',"")+'\n')
-# fout.close()
 
+rainbow_generate_start=time.time()
+os.system("./rtgen md5 loweralpha 1 4 0 3800 475254 0")
+print "Rainbow table generation took "+"--- %s seconds ---"% (time.time()-rainbow_generate_start)
 
-# rainbow_generate_start=time.time()
-# os.system("./rtgen md5 loweralpha 1 4 0 3800 475254 0")
-# print "Rainbow table generation took "+"--- %s seconds ---"% (time.time()-rainbow_generate_start)
+rainbow_sort_start=time.time()
+os.system("./rtsort md5_loweralpha#1-4_0_3800x475254_0.rt")
+print "Rainbow table sorting took "+"--- %s seconds ---"% (time.time()-rainbow_sort_start)
 
-# rainbow_sort_start=time.time()
-# os.system("./rtsort md5_loweralpha#1-4_0_3800x475254_0.rt")
-# print "Rainbow table sorting took "+"--- %s seconds ---"% (time.time()-rainbow_sort_start)
-
-# rainbow_lookup_start=time.time()
-# os.system("./rcrack md5_loweralpha#1-4_0_3800x475254_0.rt -l hashList.txt")
-# print "Rainbow table scanning took "+"--- %s seconds ---"% (time.time()-rainbow_lookup_start)
+rainbow_lookup_start=time.time()
+os.system("./rcrack md5_loweralpha#1-4_0_3800x475254_0.rt -l hashList.txt")
+print "Rainbow table scanning took "+"--- %s seconds ---"% (time.time()-rainbow_lookup_start)
 
 
 # fout.close()
