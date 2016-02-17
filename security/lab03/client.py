@@ -40,6 +40,7 @@ encrypted_m=s[:-4]
 encrypted_crc=s[-4:]
 
 # apply the masks (these do nothing actually)
+# Done with help of Hatib
 OriginalString='               000      0       '
 Altered_String='               727      4       '
 xored_String=xorString(OriginalString, Altered_String)
