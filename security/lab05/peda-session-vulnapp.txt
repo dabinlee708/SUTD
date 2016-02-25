@@ -1,0 +1,9 @@
+break getlines
+break /home/dabin/git/sutd/security/lab05/vulnapp.c:5
+break /build/eglibc-3GlaMS/eglibc-2.19/libio/getchar.c:2
+break /build/eglibc-3GlaMS/eglibc-2.19/libio/getchar.c:3
+break /build/eglibc-3GlaMS/eglibc-2.19/libio/getchar.c:5
+break /build/eglibc-3GlaMS/eglibc-2.19/libio/getchar.c:8
+break /home/dabin/git/sutd/security/lab05/vulnapp.c:8
+break /home/dabin/git/sutd/security/lab05/vulnapp.c:16
+
