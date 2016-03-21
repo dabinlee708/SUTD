@@ -3,6 +3,7 @@
 
 #constants
 fullround=31
+roundCounter=0b010101
 
 #S-Box Layer
 sbox=[0xC,0x5,0x6,0xB,0x9,0x0,0xA,0xD,0x3,0xE,0xF,0x8,0x4,0x7,0x1,0x2]
@@ -23,26 +24,42 @@ ror = lambda val, r_bits, max_bits: \
     ((val & (2**max_bits-1)) >> r_bits%max_bits) | \
     (val << (max_bits-(r_bits%max_bits)) & (2**max_bits-1))
 
-
 # keys={}
 def binary(num, pre='0b', length=8, spacer=0):
     return '{0}{{:{1}>{2}}}'.format(pre, spacer, length).format(bin(num)[2:])
 
+def xor( a, b ):
+    return (a or b) and not (a and b)
+
 def genRoundKeys(key):
-    print "Original Key: ",binary(key,'ob',80,0)
+    print "Original Key: ",binary(key,'0b',80,0)
     step1=rol(key,61,80)
-    print "Step 1   key: ",binary(step1,'ob',80,0)
+    print "Step 1   key: ",binary(step1,'0b',80,0)
+    # print sBoxLayer(int(str(binary(step1,'ob',80,0))[2:6],2))
+    # print str(bin(sBoxLayer(int(str(binary(step1,'ob',80,0))[2:6],2))))[2:6]
+    # print binary(step1,'ob',80,0)[6:82]
+    # step2=bin(sBoxLayer(int(str(binary(step1,'ob',80,0))[2:6],2)))[2:6]+binary(step1,'ob',80,0)[6:82]
+    step2=int(bin(sBoxLayer(binary(step1,'0b',80,0)[2:6]))+binary(step1,'0b',80,0)[6:82],2)
+    print "Step 2   key: ",binary(step2,'0b',80,0)
+    # print binary(step2,'0b',80,0)[63:67], binary(bin(roundCounter),'0b',5,0)[2:6]
+    a=binary(step2,'0b',80,0)[63:68]
+    b=binary(roundCounter,'0b',5,0)[2:]
+    # print binary(roundCounter,'0b',5,0)[2:3]
+    print "Step 3   key: ",binary(step2,'0b',80,0)[0:63]+''.join('0' if i == j else '1' for i, j in zip(a,b))+binary(step2,'0b',80,0)[68:]
+    # print bin(binary(step2,'0b',80,0)[63:67]^bin*(roundCounter))
+    # step3=
+    # print "Step 3   Key: ",binary(step3,'ob',80,0)
+
 
     # pass
     # keylength=len(key)
     # for i in range(len(key)):
     #     keys[keylength-i]=key[i]
-
 def addRoundKey(state,Ki):
     pass
 
 def sBoxLayer(state):
-    pass
+    return sbox[int(state)]
 
 def pLayer(state):
     pass
@@ -56,9 +73,10 @@ def present(plain, key):
 def present_inv(plain, key):
     pass
 
-key=0xabcdeabcdeabcdeabcde
+key=0xaaaaaaaaaa0000000000
 genRoundKeys(key)
-
+# for i in range(16):
+#     print sbox[i]
 
 # if __name__=="__main__":
 #     rval=rol(0b1001,1,4)
