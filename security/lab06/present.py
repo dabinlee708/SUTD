@@ -32,22 +32,32 @@ def xor( a, b ):
     return (a or b) and not (a and b)
 
 def genRoundKeys(key):
-    print "Original Key: ",binary(key,'0b',80,0)
-    step1=rol(key,61,80)
-    print "Step 1   key: ",binary(step1,'0b',80,0)
-    step2=int(bin(sBoxLayer(binary(step1,'0b',80,0)[2:6]))+binary(step1,'0b',80,0)[6:82],2)
-    print "Step 2   key: ",binary(step2,'0b',80,0)
-    a=binary(step2,'0b',80,0)[63:68]
-    b=binary(roundCounter,'0b',5,0)[2:]
+    roundKeyLists=[]
+    roundKeyLists.append(key>>16)
+    for i in range(1,32):
+        # print "Original Key: ",binary(key,'0b',80,0)
+        step=rol(key,61,80)
+        # print "Step 1   key: ",binary(step1,'0b',80,0)
+        step=int(bin(sBoxLayer(binary(step,'0b',80,0)[2:6]))+binary(step,'0b',80,0)[6:82],2)
+        # print "Step 2   key: ",binary(step2,'0b',80,0)
+        step=(step ^ (i << 15))
+        roundKeyLists.append(step >> 16)
+    for x in roundKeyLists:
+        print binary(x,'0b',64,0)
+    return roundKeyLists
+
     
     print "Step 3   key: ",binary(step2,'0b',80,0)[0:63]+\
     ''.join('0' if i == j else '1' for i, j in zip(a,b))+\
     binary(step2,'0b',80,0)[68:]
 
 def addRoundKey(state,Ki):
-    pass
+    return state ^ ki
 
 def sBoxLayer(state):
+    # postSBox=0
+    # for i in range(0,16):
+    #     output+=sbox[(state >>)]
     return sbox[int(state)]
 
 def pLayer(state):
