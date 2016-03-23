@@ -30,7 +30,7 @@ def ecb(infile,outfile,key,mode):
 
     #split hex values into chunks of 16 digits
     data = map(''.join, zip(*[iter(bodypad)]*16))
-
+    print data
     #encrypt data
     encryptedData = []
     for x in data:

@@ -1,52 +1,87 @@
-# ECB wrapper skeleton file for 50.020 Security
+# ECB wrapper
+ # skeleton file for 50.020 Security
 # Oka, SUTD, 2014
+
+# Dabin Lee 1000727
+# James Wiryo 1000457
+# Security Lab 6
+
+
 from present import *
 import argparse
 
+key = 0x00000000000000000000
 nokeybits=80
 blocksize=64
 
-
 def ecb(infile,outfile,key,mode):
-    if not infile:
-        return "u need to enter infile"
-    file=open(infile,'rb')
-    f=file.read()
-    plain="".join(c.encode('hex') for c in f)
+    # prepare for data processing
+    lol=""
 
-    k=open(key,'rb').read()
-    key=int("".join(c.encode('hex') for c in k))
-    if mode == 'e':
-        ciphertext=""
-        for i in range(len(plain)/16 +1):
-            plainint=int(plain[16*i:16*i+16],16)
-            cipher1=present(plainint, key)
-            if len(format(cipher1,'x'))%2==0:
-                ciphertext+=format(cipher1,'x').decode('hex')
-            else:
-                ciphertext+=("0"+format(cipher1,'x')).decode('hex')
+    # initialize file 
+    file = open(infile,"r")
+
+    # Read the file
+    tux_ex_head=file.read()
+    lol=tux_ex_head.encode('hex')
+
+    # if it isn't multiples of 16, add padding lol
+    remainder=len(lol)%16
+    padding=16-remainder
+
+    # in case the padding is necessary, add zeros
+    if padding!=0:
+
+        finalPadding=padding*('0')
+        body_padded=lol+finalPadding
+    
+    else:
+
+        body_padded=lol
+
+    # Initialize needed containers for encrypted and decrypted blocksize
+    encrypted_split_data=[]
+    decrypted_split_data=[]
+
+    # Split the data into processable blocks
+    split_data=map(''.join, zip(*[iter(body_padded)]*16))
+
+    
+    # Encryption 
+    for split_block in split_data:
+        # Encrypt the block in hex with a key 
+        encrypted_block = present(int(split_block,16),key)
+        # Append the encrypted block to the encrypted_split_data list
+        encrypted_split_data.append(encrypted_block)
+    
+    # Decryption
+    for block_decrypt in encrypted_split_data:
+        decrypted_block = present_inv(block_decrypt,key)
+        decrypted_split_data.append(decrypted_block)
+
+    Decrypted_data_after_convertion=""
+
+    for each in decrypted_split_data:
+        
+        eachone = str("{0:x}".format(each))
+
+        if len(eachone)!=16:
+            # print each
+            eachone = '0'*(16-len(eachone))+eachone
+        Decrypted_data_after_convertion+=eachone
+
+    Decrypted_data_after_convertion=Decrypted_data_after_convertion[:-padding]
+    Decrypted_result=Decrypted_data_after_convertion.decode("hex")
+
+    output = open ( outfile, "w")
+    output.write(Decrypted_result)
+    output.close()
 
 
-        file=open(outfile,'wb')
-        file.write(ciphertext)
-        file.close()
-        print "done"
 
 
-    if mode == 'd':
-        deciphertext=""
-        for i in range(len(plain)/16 +1):
-            if plain[16*i:16*i+16]!='':
-                plainint=int(plain[16*i:16*i+16],16)
-                decipher1=present_inv(plainint, key)
-                if len(format(decipher1,'x'))%2==0:
-                    deciphertext+=format(decipher1,'x').decode('hex')
-                else:
-                    deciphertext+=("0"+format(decipher1,'x')).decode('hex')
 
-        file=open(outfile,'wb')
-        file.write(deciphertext)
-        file.close()
+
 
 if __name__=="__main__":
     parser=argparse.ArgumentParser(description='Block cipher using ECB mode.')
@@ -59,5 +94,6 @@ if __name__=="__main__":
     infile=args.infile
     outfile=args.outfile
     keyfile=args.keyfile
-    mode=args.mode
-    ecb(infile, outfile, keyfile, mode)
+
+    ecb(infile,outfile,key,'EBD')
+
